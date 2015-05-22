@@ -1,0 +1,6 @@
+com/client/confluence/GetContent.class
+com/client/confluence/GetChildPages.class
+com/client/confluence/PagesInSpace.class
+com/client/confluence/UpdatePage.class
+com/client/confluence/ChildrenGetter.class
+com/client/confluence/PageCreator.class
