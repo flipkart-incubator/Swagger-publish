@@ -21,39 +21,39 @@ This project helps to generate documentation by including **Swagger annotations*
 This project can be included as maven-plugin with minimum configuration required in the plugins block of **POM.xml**.
 
 ```xml
-            <plugin>
-                <groupId>com.flipkart.flap.commons</groupId>
-                <artifactId>swagger-publish-maven-plugin</artifactId>
-                <version>1.0</version>
-                <configuration>
-                  <!-- Required Parameters -->
-                    <!-- Location of resources of API -->
-                    <locations>com.github.kongchen.swagger.sample.wordnik.resource</locations>
-                    <apiVersion>v2</apiVersion>
-                    <apiName>API</apiName>
-                    <!-- Optional Parameters -->
-                    <!-- Details about template -->
-                    <template>
-                        <templateName> Name of template </templateName>
-                        <templateLocation> Location of Template </templateLocation>
-                    </template>
-                    <!-- Details about confluence server -->
-                    <confluence>
-                        <spaceKey>FT</spaceKey>
-                        <pageId>1572923</pageId>
-                        <userName>admin</userName>
-                        <password>*******</password>
-                        <BASE_URL>http://192.168.56.101:8090</BASE_URL>
-                    </confluence>
-                </configuration>
-                <executions>
-                    <execution>
-                        <!-- Phase for compiler to run -->
-                        <phase>compile</phase>
-                        <!-- Goals to execute -->
-                        <goals>
-                            <goal>publish</goal>
-                        </goals>
-                    </execution>
+<plugin>
+    <groupId>com.flipkart.flap.commons</groupId>
+    <artifactId>swagger-publish-maven-plugin</artifactId>
+    <version>1.0</version>
+    <configuration>
+      <!-- Required Parameters -->
+        <!-- Location of resources of API -->
+        <locations>com.github.kongchen.swagger.sample.wordnik.resource</locations>
+        <apiVersion>v2</apiVersion>
+        <apiName>API</apiName>
+        <!-- Optional Parameters -->
+        <!-- Details about template -->
+        <template>
+            <templateName> Name of template </templateName>
+            <templateLocation> Location of Template </templateLocation>
+        </template>
+        <!-- Details about confluence server -->
+        <confluence>
+            <spaceKey>FT</spaceKey>
+            <pageId>1572923</pageId>
+            <userName>admin</userName>
+            <password>*******</password>
+            <BASE_URL>http://192.168.56.101:8090</BASE_URL>
+        </confluence>
+    </configuration>
+    <executions>
+        <execution>
+            <!-- Phase for compiler to run -->
+            <phase>compile</phase>
+            <!-- Goals to execute -->
+            <goals>
+                <goal>publish</goal>
+            </goals>
+        </execution>
                 </executions>
             </plugin>
