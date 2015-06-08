@@ -5,10 +5,9 @@ This project helps to generate documentation by including **Swagger annotations*
 
 # Functionality
 
-* Generate documentation to a file on local machine
+* Generate documentation to local machine
 * Publish documentation to confluence
 * Generates documentation during build phase
-* Use of Freemarker Template Library to generate html pages
 
 # Suppourt
 
@@ -57,3 +56,20 @@ This project can be included as maven-plugin with minimum configuration required
         </execution>
     </executions>
 </plugin>
+
+
+**Dependency to include Swagger Core**
+
+```xml
+<dependency>
+    <groupId>com.wordnik</groupId>
+    <artifactId>swagger-core</artifactId>
+    <scope>compile</scope>
+    <version>1.5.1-M2</version>
+    <exclusions>
+        <exclusion>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>jsr311-api</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
