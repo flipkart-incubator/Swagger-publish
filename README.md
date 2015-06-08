@@ -57,6 +57,7 @@ This project can be included as maven-plugin with minimum configuration required
     </executions>
 </plugin>
 
+```
 
 **Dependency to include Swagger Core**
 
@@ -73,3 +74,4 @@ This project can be included as maven-plugin with minimum configuration required
         </exclusion>
     </exclusions>
 </dependency>
+```
