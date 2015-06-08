@@ -55,5 +55,5 @@ This project can be included as maven-plugin with minimum configuration required
                 <goal>publish</goal>
             </goals>
         </execution>
-                </executions>
-            </plugin>
+    </executions>
+</plugin>
