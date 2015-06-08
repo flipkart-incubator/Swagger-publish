@@ -47,7 +47,7 @@ This project can be included as maven-plugin with minimum configuration required
     </configuration>
     <executions>
         <execution>
-            <!-- Phase for compiler to run -->
+            <!-- Phase for plugin to run -->
             <phase>compile</phase>
             <!-- Goals to execute (publish, generate) -->
             <goals>
