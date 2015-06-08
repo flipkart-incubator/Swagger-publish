@@ -72,5 +72,5 @@ This project can be included as maven-plugin with minimum configuration required
 
 **Description of Goals**
 
-* generate - Generates documentation as a html file [Document.html] on local machine.
-* publish - Generates documentation and publishes it on confluence.
+* **generate** - Generates documentation as a html file *Document.html* on local machine.
+* **publish** - Generates documentation and publishes it on confluence.
