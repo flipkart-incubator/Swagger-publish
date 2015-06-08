@@ -67,11 +67,5 @@ This project can be included as maven-plugin with minimum configuration required
     <artifactId>swagger-core</artifactId>
     <scope>compile</scope>
     <version>1.5.1-M2</version>
-    <exclusions>
-        <exclusion>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>jsr311-api</artifactId>
-        </exclusion>
-    </exclusions>
 </dependency>
 ```
