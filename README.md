@@ -28,9 +28,9 @@ This project can be included as maven-plugin with minimum configuration required
     <configuration>
       <!-- Required Parameters -->
         <!-- Location of resources of API -->
-        <locations>com.github.kongchen.swagger.sample.wordnik.resource</locations>
-        <apiVersion>v2</apiVersion>
-        <apiName>API</apiName>
+        <locations>com.example.resource</locations>
+        <apiVersion>version of API</apiVersion>
+        <apiName>Name of API</apiName>
         <!-- Optional Parameters -->
         <!-- Details about template -->
         <template>
@@ -43,14 +43,14 @@ This project can be included as maven-plugin with minimum configuration required
             <pageId>1572923</pageId>
             <userName>admin</userName>
             <password>*******</password>
-            <BASE_URL>http://192.168.56.101:8090</BASE_URL>
+            <BASE_URL>URL for Confluence Server</BASE_URL>
         </confluence>
     </configuration>
     <executions>
         <execution>
             <!-- Phase for compiler to run -->
             <phase>compile</phase>
-            <!-- Goals to execute -->
+            <!-- Goals to execute (publish, generate) -->
             <goals>
                 <goal>publish</goal>
             </goals>
