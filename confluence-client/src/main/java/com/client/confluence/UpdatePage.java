@@ -31,7 +31,7 @@ public class UpdatePage {
         String URl = BASE_URL + "/rest/api/content/" + id + "?os_authType=basic&os_username=" + URLEncoder.encode(USERNAME, ENCODING) + "&os_password=" + URLEncoder.encode(PASSWORD, ENCODING);
         GetContent content = new GetContent();
         JSONObject json = content.getContent(id, BASE_URL, USERNAME, PASSWORD, ENCODING);
-
+        System.out.println("hello");
         json.getJSONObject("body").getJSONObject("storage").put("value", html);
         json.put("title", title);
         json.getJSONObject("version").put("number", json.getJSONObject("version").getInt("number") + 1);
@@ -44,10 +44,11 @@ public class UpdatePage {
         HttpPut putPageRequest = new HttpPut(URl);
         HttpClient client = new DefaultHttpClient();
         StringEntity params =new StringEntity(json.toString());
-
+        System.out.println(json.toString(1));
         putPageRequest.addHeader("content-type", "application/json");
         putPageRequest.addHeader("Accept", "application/json");
         putPageRequest.setEntity(params);
         client.execute(putPageRequest);
+
     }
 }

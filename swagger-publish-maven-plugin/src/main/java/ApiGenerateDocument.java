@@ -15,12 +15,9 @@ import java.util.List;
  */
 
 
-@Mojo( name = "publish", defaultPhase = LifecyclePhase.COMPILE, configurator = "include-project-dependencies",
+@Mojo( name = "generate", defaultPhase = LifecyclePhase.COMPILE, configurator = "include-project-dependencies",
         requiresDependencyResolution = ResolutionScope.COMPILE_PLUS_RUNTIME)
-public class ApiDocumentMojo extends AbstractMojo {
-    @Parameter(required = true)
-    private Confluence confluence;
-
+public class ApiGenerateDocument extends AbstractMojo {
     @Parameter(required = false)
     private Template template;
 
@@ -32,13 +29,6 @@ public class ApiDocumentMojo extends AbstractMojo {
 
     @Parameter(required = true)
     private String apiName;
-
-    @Parameters
-    private List<SecurityDefinition> securityDefinitions;
-
-    public void setConfluence(Confluence confluence) { this.confluence = confluence; }
-
-    public Confluence getConfluence() { return confluence; }
 
     public void setTemplate(Template template) { this.template = template; }
 
@@ -56,9 +46,6 @@ public class ApiDocumentMojo extends AbstractMojo {
 
     public String getApiName() { return apiName; }
 
-    public void setSecurityDefinitions(List<SecurityDefinition> securityDefinitions) { this.securityDefinitions = securityDefinitions; }
-
-    public List<SecurityDefinition> getSecurityDefinitions() { return securityDefinitions; }
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if(this.getTemplate() == null) {
@@ -66,10 +53,9 @@ public class ApiDocumentMojo extends AbstractMojo {
             template1.setTemplateLocation("null");
             template1.setTemplateName("null");
             this.setTemplate(template1);
-            System.out.println("hello here");
         }
-        Configuration configuration = new Configuration(this.getLocations(), this.getApiVersion(), this.getApiName(), this.getTemplate().getTemplateLocation(), this.getTemplate().getTemplateName(), this.getConfluence().getSpaceKey(), this.getConfluence().getPageId(), this.getConfluence().getBASE_URL(), this.getConfluence().getUserName(), this.getConfluence().getPassword(), null);
         try {
+            Configuration configuration = new Configuration(this.getLocations(), this.getApiVersion(), this.getApiName(), this.getTemplate().getTemplateLocation(), this.getTemplate().getTemplateName(), null, null, null, null, null);
             configuration.generateDoc();
         } catch (Exception e) {
             e.printStackTrace();

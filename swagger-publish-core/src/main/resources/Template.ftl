@@ -134,7 +134,7 @@
                             <#assign responses = get.getResponses()/>
                             <td>
                                 <#list responses?keys as responseCode>
-                                    <p> - ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
+                                    <p> ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
                                     <#if responses?values[responseCode_index].getSchema()??> <#list models?keys as model>
                                         <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
                                         <table>
@@ -296,7 +296,7 @@
                             <#assign responses = put.getResponses()/>
                             <td>
                                 <#list responses?keys as responseCode>
-                                    <p> - ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
+                                    <p> ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
                                     <#if responses?values[responseCode_index].getSchema()??> <#list models?keys as model>
                                         <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
                                             <table>
@@ -458,7 +458,7 @@
                             <#assign responses = post.getResponses()/>
                             <td>
                                 <#list responses?keys as responseCode>
-                                    <p> - ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
+                                    <p> ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
                                     <#if responses?values[responseCode_index].getSchema()??> <#list models?keys as model>
                                         <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
                                             <table>
@@ -611,7 +611,7 @@
                             <#assign responses = delete.getResponses()/>
                             <td>
                                 <#list responses?keys as responseCode>
-                                    <p> - ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
+                                    <p> ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
                                     <#if responses?values[responseCode_index].getSchema()??> <#list models?keys as model>
                                         <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
                                             <table>
@@ -763,7 +763,7 @@
                             <#assign responses = patch.getResponses()/>
                             <td>
                                 <#list responses?keys as responseCode>
-                                    <p> - ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
+                                    <p> ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
                                     <#if responses?values[responseCode_index].getSchema()??> <#list models?keys as model>
                                         <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
                                             <table>
@@ -915,7 +915,7 @@
                             <#assign responses = options.getResponses()/>
                             <td>
                                 <#list responses?keys as responseCode>
-                                    <p> - ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
+                                    <p> ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
                                     <#if responses?values[responseCode_index].getSchema()??> <#list models?keys as model>
                                         <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
                                             <table>
