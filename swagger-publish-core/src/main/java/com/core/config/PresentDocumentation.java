@@ -56,6 +56,36 @@ public class PresentDocumentation {
                     if (new JSONObject(jsonObject.getJSONObject("definitions").getString(key)).has("properties")) {
                         String convert = convert(new JSONObject(jsonObject.getJSONObject("definitions").getString(key)).getJSONObject("properties")).toString();
                         models.put("#/definitions/" + key, new JSONObject(convert));
+                        newModel = " {\n" + newModel + "}";
+                        schema.put("#/definitions/" + key, newModel);
+                    }
+                    if (new JSONObject(jsonObject.getJSONObject("definitions").getString(key)).has("allOf")) {
+                        JSONArray jsonArray = (new JSONObject(jsonObject.getJSONObject("definitions").getString(key)).getJSONArray("allOf"));
+                        JSONObject jsonObject2 = new JSONObject();
+                        for(int len = 0; len < jsonArray.length(); len++) {
+                            JSONObject jsonObject1 = (JSONObject) jsonArray.get(len);
+                            if(jsonObject1.has("properties")) {
+                                Iterator<?> iterator2 = jsonObject1.getJSONObject("properties").keys();
+                                while(iterator2.hasNext()) {
+                                    String key1  = (String) iterator2.next();
+                                    jsonObject2.put(key1, jsonObject1.get(key1));
+                                }
+                            }
+                        }
+                        JSONObject convert = convert(jsonObject2);
+                        for(int len = 0; len < jsonArray.length(); len++) {
+                            Object object = jsonArray.get(len);
+                            if(((JSONObject) object).has("$ref")) {
+                                convert.append(((JSONObject) object).getString("$ref").replace("#/definitions/", ""), ((JSONObject) object).getString("$ref").replace("#/definitions/", ""));
+                                newModel += ((JSONObject) object).getString("$ref").replace("#/definitions/", "") + "(" + ((JSONObject) object).getString("$ref").replace("#/definitions/", "") + ")";
+                            }
+                            if(((JSONObject) object).has("ref")) {
+                                convert.append(((JSONObject) object).getString("ref").replace("#/definitions/", ""), ((JSONObject) object).getString("ref").replace("#/definitions/", ""));
+                                newModel += ((JSONObject) object).getString("ref").replace("#/definitions/", "") + "(" + ((JSONObject) object).getString("ref").replace("#/definitions/", "") + ")";
+                            }
+                        }
+                        newModel = " {\n" + newModel + "}";
+                        models.put("#/definitions/" + key, new JSONObject(convert.toString()));
                         schema.put("#/definitions/" + key, newModel);
                     }
                 }
@@ -123,6 +153,7 @@ public class PresentDocumentation {
             templateInput.put("schema", schema);
 
             if (pageId == null) {
+                System.out.println(pageId + " " + spaceKey);
                 Writer fileWriter = new FileWriter(new File("Document.html"));
                 try {
                     template.process(templateInput, fileWriter);
@@ -276,8 +307,6 @@ public class PresentDocumentation {
             }
             newModel += ",\n";
         }
-
-        newModel = " {\n" + newModel + "}";
 
         return new JSONObject(newJsonObject.toString(1));
     }

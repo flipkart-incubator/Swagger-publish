@@ -22,8 +22,8 @@
                 <#assign get = operation.getGet()/>
                 <table>
                     <tr>
-                        <td> Method </td>
-                        <td> GET </td>
+                        <td  bgcolor="#E6E6FA"> Method </td>
+                        <td  bgcolor="#E6E6FA"> GET </td>
                     </tr>
                     <#if get.getSummary()??>
                     <tr>
@@ -134,47 +134,109 @@
                             <#assign responses = get.getResponses()/>
                             <td>
                                 <#list responses?keys as responseCode>
-                                    <p> ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
-                                    <#if responses?values[responseCode_index].getSchema()??> <#list models?keys as model>
-                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
-                                        <table>
-                                            <tr>
+                                   <table>
+                                       <tr>
+                                           <td> Code </td>
+                                           <td> ${responseCode} </td>
+                                       </tr>
+                                       <#if responses?values[responseCode_index].getDescription()??>
+                                           <tr>
+                                               <td>Description</td>
+                                               <td>${responses?values[responseCode_index].getDescription()}</td>
+                                           </tr>
+                                       </#if>
+                                       <#if responses?values[responseCode_index].getSchema()??>
+                                           <tr>
+                                                <td>Response Schema</td>
                                                 <td>
-                                                    <ac:structured-macro ac:name="code">
-                                                        <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                        <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
-                                                    </ac:structured-macro>
-                                                </td>
-                                                <td>
-                                                    <ac:structured-macro ac:name="code">
-                                                        <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                        <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
-                                                    </ac:structured-macro>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        </#if> </#if>
-                                        <#if responses?values[responseCode_index].getSchema().getType() == "array"><#if model == responses?values[responseCode_index].getSchema().getItems().get$ref()>
-                                        <table>
-                                            <tr>
-                                                <td>
-                                                    <ac:structured-macro ac:name="code">
-                                                        <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                        <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
-                                                    </ac:structured-macro>
-                                                </td>
-                                                <td>
-                                                    <ac:structured-macro ac:name="code">
-                                                        <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                        <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
-                                                    </ac:structured-macro>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        </#if> </#if>
-                                    </#list>
-                                    </#if>
+                                                    <#assign array = 0/>
+                                                    <#assign ref = 0/>
+                                                    <#if responses?values[responseCode_index].getSchema().getType()??>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "array">
+                                                            <#assign array = 1/>
+                                                        </#if>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref">
+                                                            <#assign ref = 1/>
+                                                        </#if>
+                                                    </#if>
+                                                    <#if array == 0> <#if ref == 0> ${responses?values[responseCode_index].getSchema().getType()} </#if> </#if>
+                                                    <#list models?keys as model>
+                                                    <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
+                                                       <table>
+                                                           <tr>
+                                                               <td>
+                                                                   <ac:structured-macro ac:name="code">
+                                                                       <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                       <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
+                                                                   </ac:structured-macro>
+                                                               </td>
+                                                               <td>
+                                                                   <ac:structured-macro ac:name="code">
+                                                                       <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                       <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
+                                                                   </ac:structured-macro>
+                                                               </td>
+                                                           </tr>
+                                                       </table>
+                                                   </#if> </#if>
+                                                   <#if responses?values[responseCode_index].getSchema().getType() == "array"><#if model == responses?values[responseCode_index].getSchema().getItems().get$ref()>
+                                                       <table>
+                                                           <tr>
+                                                               <td>
+                                                                   <ac:structured-macro ac:name="code">
+                                                                       <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                       <ac:plain-text-body><![CDATA[[${models[model]}]]]></ac:plain-text-body>
+                                                                   </ac:structured-macro>
+                                                               </td>
+                                                               <td>
+                                                                   <ac:structured-macro ac:name="code">
+                                                                       <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                       <ac:plain-text-body><![CDATA[[${schema[model]}]]]></ac:plain-text-body>
+                                                                   </ac:structured-macro>
+                                                               </td>
+                                                           </tr>
+                                                       </table>
+                                                   </#if> </#if>
+                                               </#list>
+                                               </td>
+                                           </tr>
+                                       </#if>
+                                       <#if responses?values[responseCode_index].getHeaders()??>
+                                           <#assign headers = responses?values[responseCode_index].getHeaders()/>
+                                           <tr>
+                                               <td> Headers </td>
+                                               <td>
+                                                   <#list headers?keys as header>
+                                                       <p> ${header} : ${headers?values[header_index].getDescription()}</p>
+                                                   </#list>
+                                               </td>
+                                           </tr>
+                                       </#if>
+                                   </table>
                                 </#list>
+                            </td>
+                        </tr>
+                    </#if>
+                    <#if get.getSecurity()??>
+                        <tr>
+                            <td>Security</td>
+                            <td>
+                                <table>
+                                <#list get.getSecurity() as security>
+                                        <#list security?keys as auth>
+                                            <tr>
+                                                <td>
+                                                    ${auth}
+                                                </td>
+                                                <td>
+                                                    <#list security?values[auth_index] as auth_list>
+                                                       <p>${auth_list}</p>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#list>
+                                </#list>
+                                </table>
                             </td>
                         </tr>
                     </#if>
@@ -184,8 +246,8 @@
                 <#assign put = operation.getPut()/>
                 <table>
                     <tr>
-                        <td> Method </td>
-                        <td> PUT </td>
+                        <td  bgcolor="#E6E6FA"> Method </td>
+                        <td  bgcolor="#E6E6FA"> PUT </td>
                     </tr>
                     <#if put.getSummary()??>
                         <tr>
@@ -296,47 +358,109 @@
                             <#assign responses = put.getResponses()/>
                             <td>
                                 <#list responses?keys as responseCode>
-                                    <p> ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
-                                    <#if responses?values[responseCode_index].getSchema()??> <#list models?keys as model>
-                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </#if> </#if>
-                                        <#if responses?values[responseCode_index].getSchema().getType() == "array"><#if model == responses?values[responseCode_index].getSchema().getItems().get$ref()>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </#if> </#if>
-                                    </#list>
-                                    </#if>
+                                    <table>
+                                        <tr>
+                                            <td> Code </td>
+                                            <td> ${responseCode} </td>
+                                        </tr>
+                                        <#if responses?values[responseCode_index].getDescription()??>
+                                            <tr>
+                                                <td>Description</td>
+                                                <td>${responses?values[responseCode_index].getDescription()}</td>
+                                            </tr>
+                                        </#if>
+                                        <#if responses?values[responseCode_index].getSchema()??>
+                                            <tr>
+                                                <td>Response Schema</td>
+                                                <td>
+                                                    <#assign array = 0/>
+                                                    <#assign ref = 0/>
+                                                    <#if responses?values[responseCode_index].getSchema().getType()??>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "array">
+                                                            <#assign array = 1/>
+                                                        </#if>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref">
+                                                            <#assign ref = 1/>
+                                                        </#if>
+                                                    </#if>
+                                                    <#if array == 0> <#if ref == 0> ${responses?values[responseCode_index].getSchema().getType()} </#if> </#if>
+                                                    <#list models?keys as model>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </#if> </#if>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "array"><#if model == responses?values[responseCode_index].getSchema().getItems().get$ref()>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[[${models[model]}]]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[[${schema[model]}]]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </#if> </#if>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                        <#if responses?values[responseCode_index].getHeaders()??>
+                                            <#assign headers = responses?values[responseCode_index].getHeaders()/>
+                                            <tr>
+                                                <td> Headers </td>
+                                                <td>
+                                                    <#list headers?keys as header>
+                                                        <p> ${header} : ${headers?values[header_index].getDescription()}</p>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                    </table>
                                 </#list>
+                            </td>
+                        </tr>
+                    </#if>
+                    <#if put.getSecurity()??>
+                        <tr>
+                            <td>Security</td>
+                            <td>
+                                <table>
+                                    <#list put.getSecurity() as security>
+                                        <#list security?keys as auth>
+                                            <tr>
+                                                <td>
+                                                ${auth}
+                                                </td>
+                                                <td>
+                                                    <#list security?values[auth_index] as auth_list>
+                                                        <p>${auth_list}</p>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#list>
+                                    </#list>
+                                </table>
                             </td>
                         </tr>
                     </#if>
@@ -346,8 +470,8 @@
                 <#assign post = operation.getPost()/>
                 <table>
                     <tr>
-                        <td> Method </td>
-                        <td> POST </td>
+                        <td  bgcolor="#E6E6FA"> Method </td>
+                        <td  bgcolor="#E6E6FA"> POST </td>
                     </tr>
                     <#if post.getSummary()??>
                         <tr>
@@ -458,47 +582,109 @@
                             <#assign responses = post.getResponses()/>
                             <td>
                                 <#list responses?keys as responseCode>
-                                    <p> ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
-                                    <#if responses?values[responseCode_index].getSchema()??> <#list models?keys as model>
-                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </#if> </#if>
-                                        <#if responses?values[responseCode_index].getSchema().getType() == "array"><#if model == responses?values[responseCode_index].getSchema().getItems().get$ref()>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </#if> </#if>
-                                    </#list>
-                                    </#if>
+                                    <table>
+                                        <tr>
+                                            <td> Code </td>
+                                            <td> ${responseCode} </td>
+                                        </tr>
+                                        <#if responses?values[responseCode_index].getDescription()??>
+                                            <tr>
+                                                <td>Description</td>
+                                                <td>${responses?values[responseCode_index].getDescription()}</td>
+                                            </tr>
+                                        </#if>
+                                        <#if responses?values[responseCode_index].getSchema()??>
+                                            <tr>
+                                                <td>Response Schema</td>
+                                                <td>
+                                                    <#assign array = 0/>
+                                                    <#assign ref = 0/>
+                                                    <#if responses?values[responseCode_index].getSchema().getType()??>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "array">
+                                                            <#assign array = 1/>
+                                                        </#if>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref">
+                                                            <#assign ref = 1/>
+                                                        </#if>
+                                                    </#if>
+                                                    <#if array == 0> <#if ref == 0> ${responses?values[responseCode_index].getSchema().getType()} </#if> </#if>
+                                                    <#list models?keys as model>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </#if> </#if>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "array"><#if model == responses?values[responseCode_index].getSchema().getItems().get$ref()>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[[${models[model]}]]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[[${schema[model]}]]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </#if> </#if>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                        <#if responses?values[responseCode_index].getHeaders()??>
+                                            <#assign headers = responses?values[responseCode_index].getHeaders()/>
+                                            <tr>
+                                                <td> Headers </td>
+                                                <td>
+                                                    <#list headers?keys as header>
+                                                        <p> ${header} : ${headers?values[header_index].getDescription()}</p>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                    </table>
                                 </#list>
+                            </td>
+                        </tr>
+                    </#if>
+                    <#if post.getSecurity()??>
+                        <tr>
+                            <td>Security</td>
+                            <td>
+                                <table>
+                                    <#list post.getSecurity() as security>
+                                        <#list security?keys as auth>
+                                            <tr>
+                                                <td>
+                                                ${auth}
+                                                </td>
+                                                <td>
+                                                    <#list security?values[auth_index] as auth_list>
+                                                        <p>${auth_list}</p>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#list>
+                                    </#list>
+                                </table>
                             </td>
                         </tr>
                     </#if>
@@ -509,8 +695,8 @@
                 <table>
                     <#assign delete = operation.getDelete()/>
                     <tr>
-                        <td> Method </td>
-                        <td> DELETE </td>
+                        <td  bgcolor="#E6E6FA"> Method </td>
+                        <td  bgcolor="#E6E6FA"> DELETE </td>
                     </tr>
                     <#if delete.getSummary()??>
                         <tr>
@@ -611,47 +797,109 @@
                             <#assign responses = delete.getResponses()/>
                             <td>
                                 <#list responses?keys as responseCode>
-                                    <p> ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
-                                    <#if responses?values[responseCode_index].getSchema()??> <#list models?keys as model>
-                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </#if> </#if>
-                                        <#if responses?values[responseCode_index].getSchema().getType() == "array"><#if model == responses?values[responseCode_index].getSchema().getItems().get$ref()>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </#if> </#if>
-                                    </#list>
-                                    </#if>
+                                    <table>
+                                        <tr>
+                                            <td> Code </td>
+                                            <td> ${responseCode} </td>
+                                        </tr>
+                                        <#if responses?values[responseCode_index].getDescription()??>
+                                            <tr>
+                                                <td>Description</td>
+                                                <td>${responses?values[responseCode_index].getDescription()}</td>
+                                            </tr>
+                                        </#if>
+                                        <#if responses?values[responseCode_index].getSchema()??>
+                                            <tr>
+                                                <td>Response Schema</td>
+                                                <td>
+                                                    <#assign array = 0/>
+                                                    <#assign ref = 0/>
+                                                    <#if responses?values[responseCode_index].getSchema().getType()??>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "array">
+                                                            <#assign array = 1/>
+                                                        </#if>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref">
+                                                            <#assign ref = 1/>
+                                                        </#if>
+                                                    </#if>
+                                                    <#if array == 0> <#if ref == 0> ${responses?values[responseCode_index].getSchema().getType()} </#if> </#if>
+                                                    <#list models?keys as model>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </#if> </#if>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "array"><#if model == responses?values[responseCode_index].getSchema().getItems().get$ref()>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[[${models[model]}]]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[[${schema[model]}]]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </#if> </#if>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                        <#if responses?values[responseCode_index].getHeaders()??>
+                                            <#assign headers = responses?values[responseCode_index].getHeaders()/>
+                                            <tr>
+                                                <td> Headers </td>
+                                                <td>
+                                                    <#list headers?keys as header>
+                                                        <p> ${header} : ${headers?values[header_index].getDescription()}</p>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                    </table>
                                 </#list>
+                            </td>
+                        </tr>
+                    </#if>
+                    <#if delete.getSecurity()??>
+                        <tr>
+                            <td>Security</td>
+                            <td>
+                                <table>
+                                    <#list delete.getSecurity() as security>
+                                        <#list security?keys as auth>
+                                            <tr>
+                                                <td>
+                                                ${auth}
+                                                </td>
+                                                <td>
+                                                    <#list security?values[auth_index] as auth_list>
+                                                        <p>${auth_list}</p>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#list>
+                                    </#list>
+                                </table>
                             </td>
                         </tr>
                     </#if>
@@ -661,8 +909,8 @@
                 <#assign patch = operation.getPatch()/>
                 <table>
                     <tr>
-                        <td> Method </td>
-                        <td> PATCH </td>
+                        <td  bgcolor="#E6E6FA"> Method </td>
+                        <td  bgcolor="#E6E6FA"> PATCH </td>
                     </tr>
                     <#if patch.getSummary()??>
                         <tr>
@@ -763,47 +1011,109 @@
                             <#assign responses = patch.getResponses()/>
                             <td>
                                 <#list responses?keys as responseCode>
-                                    <p> ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
-                                    <#if responses?values[responseCode_index].getSchema()??> <#list models?keys as model>
-                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </#if> </#if>
-                                        <#if responses?values[responseCode_index].getSchema().getType() == "array"><#if model == responses?values[responseCode_index].getSchema().getItems().get$ref()>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </#if> </#if>
-                                    </#list>
-                                    </#if>
+                                    <table>
+                                        <tr>
+                                            <td> Code </td>
+                                            <td> ${responseCode} </td>
+                                        </tr>
+                                        <#if responses?values[responseCode_index].getDescription()??>
+                                            <tr>
+                                                <td>Description</td>
+                                                <td>${responses?values[responseCode_index].getDescription()}</td>
+                                            </tr>
+                                        </#if>
+                                        <#if responses?values[responseCode_index].getSchema()??>
+                                            <tr>
+                                                <td>Response Schema</td>
+                                                <td>
+                                                    <#assign array = 0/>
+                                                    <#assign ref = 0/>
+                                                    <#if responses?values[responseCode_index].getSchema().getType()??>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "array">
+                                                            <#assign array = 1/>
+                                                        </#if>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref">
+                                                            <#assign ref = 1/>
+                                                        </#if>
+                                                    </#if>
+                                                    <#if array == 0> <#if ref == 0> ${responses?values[responseCode_index].getSchema().getType()} </#if> </#if>
+                                                    <#list models?keys as model>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </#if> </#if>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "array"><#if model == responses?values[responseCode_index].getSchema().getItems().get$ref()>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[[${models[model]}]]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[[${schema[model]}]]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </#if> </#if>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                        <#if responses?values[responseCode_index].getHeaders()??>
+                                            <#assign headers = responses?values[responseCode_index].getHeaders()/>
+                                            <tr>
+                                                <td> Headers </td>
+                                                <td>
+                                                    <#list headers?keys as header>
+                                                        <p> ${header} : ${headers?values[header_index].getDescription()}</p>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                    </table>
                                 </#list>
+                            </td>
+                        </tr>
+                    </#if>
+                    <#if patch.getSecurity()??>
+                        <tr>
+                            <td>Security</td>
+                            <td>
+                                <table>
+                                    <#list patch.getSecurity() as security>
+                                        <#list security?keys as auth>
+                                            <tr>
+                                                <td>
+                                                ${auth}
+                                                </td>
+                                                <td>
+                                                    <#list security?values[auth_index] as auth_list>
+                                                        <p>${auth_list}</p>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#list>
+                                    </#list>
+                                </table>
                             </td>
                         </tr>
                     </#if>
@@ -813,8 +1123,8 @@
                 <#assign options = operation.getOptions()/>
                 <table>
                     <tr>
-                        <td> Method </td>
-                        <td> OPTIONS </td>
+                        <td  bgcolor="#E6E6FA"> Method </td>
+                        <td  bgcolor="#E6E6FA"> OPTIONS </td>
                     </tr>
                     <#if options.getSummary()??>
                         <tr>
@@ -915,47 +1225,109 @@
                             <#assign responses = options.getResponses()/>
                             <td>
                                 <#list responses?keys as responseCode>
-                                    <p> ${responseCode}, ${responses?values[responseCode_index].getDescription()}</p>
-                                    <#if responses?values[responseCode_index].getSchema()??> <#list models?keys as model>
-                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </#if> </#if>
-                                        <#if responses?values[responseCode_index].getSchema().getType() == "array"><#if model == responses?values[responseCode_index].getSchema().getItems().get$ref()>
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                    <td>
-                                                        <ac:structured-macro ac:name="code">
-                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
-                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
-                                                        </ac:structured-macro>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </#if> </#if>
-                                    </#list>
-                                    </#if>
+                                    <table>
+                                        <tr>
+                                            <td> Code </td>
+                                            <td> ${responseCode} </td>
+                                        </tr>
+                                        <#if responses?values[responseCode_index].getDescription()??>
+                                            <tr>
+                                                <td>Description</td>
+                                                <td>${responses?values[responseCode_index].getDescription()}</td>
+                                            </tr>
+                                        </#if>
+                                        <#if responses?values[responseCode_index].getSchema()??>
+                                            <tr>
+                                                <td>Response Schema</td>
+                                                <td>
+                                                    <#assign array = 0/>
+                                                    <#assign ref = 0/>
+                                                    <#if responses?values[responseCode_index].getSchema().getType()??>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "array">
+                                                            <#assign array = 1/>
+                                                        </#if>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref">
+                                                            <#assign ref = 1/>
+                                                        </#if>
+                                                    </#if>
+                                                    <#if array == 0> <#if ref == 0> ${responses?values[responseCode_index].getSchema().getType()} </#if> </#if>
+                                                    <#list models?keys as model>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "ref"><#if model == responses?values[responseCode_index].getSchema().get$ref()>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[${models[model]}]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[${schema[model]}]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </#if> </#if>
+                                                        <#if responses?values[responseCode_index].getSchema().getType() == "array"><#if model == responses?values[responseCode_index].getSchema().getItems().get$ref()>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[[${models[model]}]]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                    <td>
+                                                                        <ac:structured-macro ac:name="code">
+                                                                            <ac:parameter ac:name="language">javascript</ac:parameter>
+                                                                            <ac:plain-text-body><![CDATA[[${schema[model]}]]]></ac:plain-text-body>
+                                                                        </ac:structured-macro>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </#if> </#if>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                        <#if responses?values[responseCode_index].getHeaders()??>
+                                            <#assign headers = responses?values[responseCode_index].getHeaders()/>
+                                            <tr>
+                                                <td> Headers </td>
+                                                <td>
+                                                    <#list headers?keys as header>
+                                                        <p> ${header} : ${headers?values[header_index].getDescription()}</p>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#if>
+                                    </table>
                                 </#list>
+                            </td>
+                        </tr>
+                    </#if>
+                    <#if options.getSecurity()??>
+                        <tr>
+                            <td>Security</td>
+                            <td>
+                                <table>
+                                    <#list options.getSecurity() as security>
+                                        <#list security?keys as auth>
+                                            <tr>
+                                                <td>
+                                                ${auth}
+                                                </td>
+                                                <td>
+                                                    <#list security?values[auth_index] as auth_list>
+                                                        <p>${auth_list}</p>
+                                                    </#list>
+                                                </td>
+                                            </tr>
+                                        </#list>
+                                    </#list>
+                                </table>
                             </td>
                         </tr>
                     </#if>
@@ -963,3 +1335,4 @@
             </#if>
     </#list>
 </#if>
+
