@@ -36,7 +36,7 @@ This project can be included as maven-plugin with minimum configuration required
             <templateName> Name of template </templateName>
             <templateLocation> Location of Template </templateLocation>
         </template>
-        <!-- Details about confluence server -->
+        <!-- Details about confluence server (Note: it's details are required for publish goal)-->
         <confluence>
             <spaceKey>FT</spaceKey>
             <pageId>1572923</pageId>
