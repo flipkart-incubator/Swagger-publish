@@ -21,7 +21,7 @@ This project can be included as maven-plugin with minimum configuration required
 
 ```xml
 <plugin>
-    <groupId>com.flipkart.flap.commons</groupId>
+    <groupId>com.flipkart.flap.swagger-publish</groupId>
     <artifactId>swagger-publish-maven-plugin</artifactId>
     <version>1.0</version>
     <configuration>
