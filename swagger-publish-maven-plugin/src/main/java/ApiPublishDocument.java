@@ -1,3 +1,4 @@
+import org.apache.commons.codec.binary.Base64;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -61,6 +62,7 @@ public class ApiPublishDocument extends AbstractMojo {
             template1.setTemplateName("null");
             this.setTemplate(template1);
         }
+        this.confluence.setPassword(new String(Base64.decodeBase64(this.confluence.getPassword().getBytes())));
         Configuration configuration = new Configuration(this.getLocations(), this.getApiVersion(), this.getApiName(), this.getTemplate().getTemplateLocation(), this.getTemplate().getTemplateName(), this.getConfluence().getSpaceKey(), this.getConfluence().getPageId(), this.getConfluence().getBASE_URL(), this.getConfluence().getUserName(), this.getConfluence().getPassword());
         try {
             configuration.generateDoc();
