@@ -39,8 +39,8 @@ This project can be included as maven-plugin with minimum configuration required
         <!-- Details about confluence server (Note: it's details are required for publish goal)-->
         <confluence>
             <spaceKey>FT</spaceKey>
-            <pageId>1572923</pageId>
-            <userName>admin</userName>
+            <pageId>1572923</pageId> <!-- You can find the Page ID for a page by clicking on edit button of that page -->
+            <userName>admin</userName> 
             <password>*******</password>
             <BASE_URL>URL for Confluence Server</BASE_URL>
         </confluence>
