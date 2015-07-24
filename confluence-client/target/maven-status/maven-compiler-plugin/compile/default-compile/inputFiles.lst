@@ -1,6 +1,6 @@
-/Users/shubham.tyagi/github/Swagger-publish/confluence-client/src/main/java/com/client/confluence/ChildrenGetter.java
-/Users/shubham.tyagi/github/Swagger-publish/confluence-client/src/main/java/com/client/confluence/GetContent.java
-/Users/shubham.tyagi/github/Swagger-publish/confluence-client/src/main/java/com/client/confluence/GetChildPages.java
-/Users/shubham.tyagi/github/Swagger-publish/confluence-client/src/main/java/com/client/confluence/PageCreator.java
-/Users/shubham.tyagi/github/Swagger-publish/confluence-client/src/main/java/com/client/confluence/PagesInSpace.java
-/Users/shubham.tyagi/github/Swagger-publish/confluence-client/src/main/java/com/client/confluence/UpdatePage.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/confluence-client/src/main/java/com/client/confluence/GetContent.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/confluence-client/src/main/java/com/client/confluence/GetChildPages.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/confluence-client/src/main/java/com/client/confluence/PagesInSpace.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/confluence-client/src/main/java/com/client/confluence/UpdatePage.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/confluence-client/src/main/java/com/client/confluence/ChildrenGetter.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/confluence-client/src/main/java/com/client/confluence/PageCreator.java

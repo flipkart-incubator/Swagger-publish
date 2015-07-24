@@ -1,6 +1,5 @@
 package com.core.reader;
 
-import com.github.kongchen.swagger.docgen.LogAdapter;
 import com.wordnik.swagger.annotations.*;
 import com.wordnik.swagger.converter.ModelConverters;
 import com.wordnik.swagger.jaxrs.ParameterProcessor;

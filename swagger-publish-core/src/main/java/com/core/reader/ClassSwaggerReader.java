@@ -1,6 +1,6 @@
 package com.core.reader;
 
-import com.github.kongchen.swagger.docgen.GenerateException;
+import com.core.config.GenerateException;
 import com.wordnik.swagger.models.Swagger;
 
 import java.util.Set;

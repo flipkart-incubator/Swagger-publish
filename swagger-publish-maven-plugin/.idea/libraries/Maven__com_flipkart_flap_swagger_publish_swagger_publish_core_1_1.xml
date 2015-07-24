@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.flipkart.flap.swagger-publish:swagger-publish-core:1.1">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/flipkart/flap/swagger-publish/swagger-publish-core/1.1/swagger-publish-core-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/flipkart/flap/swagger-publish/swagger-publish-core/1.1/swagger-publish-core-1.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/flipkart/flap/swagger-publish/swagger-publish-core/1.1/swagger-publish-core-1.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

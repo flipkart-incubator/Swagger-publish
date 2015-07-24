@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.flipkart.flap.commons</groupId>
+    <groupId>com.flipkart.flap.swagger-publish</groupId>
     <artifactId>swagger-publish-core</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <dependencies>
         <dependency>
             <groupId>org.reflections</groupId>
@@ -17,11 +17,6 @@
             <groupId>com.wordnik</groupId>
             <artifactId>swagger-jaxrs</artifactId>
             <version>1.5.1-M2</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.kongchen</groupId>
-            <artifactId>swagger-maven-plugin</artifactId>
-            <version>2.3.3</version>
         </dependency>
         <dependency>
             <groupId>com.wordnik</groupId>
@@ -39,9 +34,9 @@
             <version>2.3.14</version>
         </dependency>
         <dependency>
-            <groupId>com.flipkart.flap.commons</groupId>
+            <groupId>com.flipkart.flap.swagger-publish</groupId>
             <artifactId>confluence-client</artifactId>
-            <version>1.0</version>
+            <version>1.1</version>
         </dependency>
     </dependencies>
 

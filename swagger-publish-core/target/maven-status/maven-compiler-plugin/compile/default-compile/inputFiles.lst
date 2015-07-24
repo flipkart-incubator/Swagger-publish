@@ -1,7 +1,7 @@
-/Users/shubham.tyagi/github/Swagger-publish/swagger-publish-core/src/main/java/com/core/config/GenerateException.java
-/Users/shubham.tyagi/github/Swagger-publish/swagger-publish-core/src/main/java/com/core/reader/JaxrsReader.java
-/Users/shubham.tyagi/github/Swagger-publish/swagger-publish-core/src/main/java/com/core/reader/ClassSwaggerReader.java
-/Users/shubham.tyagi/github/Swagger-publish/swagger-publish-core/src/main/java/com/core/config/PresentDocumentation.java
-/Users/shubham.tyagi/github/Swagger-publish/swagger-publish-core/src/main/java/com/core/config/Configuration.java
-/Users/shubham.tyagi/github/Swagger-publish/swagger-publish-core/src/main/java/com/core/reader/AbstractReader.java
-/Users/shubham.tyagi/github/Swagger-publish/swagger-publish-core/src/main/java/com/core/config/GetValidClasses.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/swagger-publish-core/src/main/java/com/core/reader/JaxrsReader.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/swagger-publish-core/src/main/java/com/core/config/GetValidClasses.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/swagger-publish-core/src/main/java/com/core/config/GenerateException.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/swagger-publish-core/src/main/java/com/core/reader/ClassSwaggerReader.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/swagger-publish-core/src/main/java/com/core/reader/AbstractReader.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/swagger-publish-core/src/main/java/com/core/config/Configuration.java
+/Users/shubham.tyagi/Swagger-Publish-Github/Swagger-publish/swagger-publish-core/src/main/java/com/core/config/PresentDocumentation.java

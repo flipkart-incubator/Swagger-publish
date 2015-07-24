@@ -3,10 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.flipkart.flap.commons</groupId>
+    <groupId>com.flipkart.flap.swagger-publish</groupId>
     <artifactId>swagger-publish-maven-plugin</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>1.0</version>
+    <version>1.1</version>
     <dependencies>
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
@@ -19,9 +19,9 @@
             <version>3.0.4</version>
         </dependency>
         <dependency>
-            <groupId>com.flipkart.flap.commons</groupId>
+            <groupId>com.flipkart.flap.swagger-publish</groupId>
             <artifactId>swagger-publish-core</artifactId>
-            <version>1.0</version>
+            <version>1.1</version>
         </dependency>
     </dependencies>
     <build>

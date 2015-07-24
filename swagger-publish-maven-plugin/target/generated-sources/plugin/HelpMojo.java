@@ -57,7 +57,7 @@ public class HelpMojo
     private int indentSize;
 
     // groupId/artifactId/plugin-help.xml
-    private static final String PLUGIN_HELP_PATH = "/META-INF/maven/com.flipkart.flap.commons/swagger-publish-maven-plugin/plugin-help.xml";
+    private static final String PLUGIN_HELP_PATH = "/META-INF/maven/com.flipkart.flap.swagger-publish/swagger-publish-maven-plugin/plugin-help.xml";
 
     private Document build()
         throws MojoExecutionException
