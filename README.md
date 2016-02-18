@@ -23,7 +23,7 @@ This project can be included as maven-plugin with minimum configuration required
 <plugin>
     <groupId>com.flipkart.flap.swagger-publish</groupId>
     <artifactId>swagger-publish-maven-plugin</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <configuration>
       <!-- Required Parameters -->
         <!-- Location of resources of API -->
