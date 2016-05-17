@@ -1,0 +1,95 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <properties>
+        <jacoco.version>0.7.2.201409121644</jacoco.version>
+        <surefire.version>2.14.1</surefire.version>
+        <dropwizard.version>0.8.1</dropwizard.version>
+        <jdbi.version>2.55</jdbi.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    </properties>
+
+    <groupId>com.flipkart.flap.utils</groupId>
+    <artifactId>swagger-publish</artifactId>
+    <version>1.1.1</version>
+
+    <modules>
+       <module>confluence-client</module>
+        <module>swagger-publish-core</module>
+        <module>swagger-publish-maven-plugin</module>
+    </modules>
+
+
+    <packaging>pom</packaging>
+    <name>Swagger publish plugin to publish swagger annotated documentation to confluence using user credentials</name>
+    <url>http://ads.flipkart.com</url>
+
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>libs-releases</name>
+            <url>http://artifactory.nm.flipkart.com:8081/artifactory/libs-releases-local</url>
+        </repository>
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>central-snapshots</id>
+            <name>libs-snapshots</name>
+            <url>http://artifactory.nm.flipkart.com:8081/artifactory/libs-snapshots-local</url>
+        </repository>
+
+        <repository>
+            <id>projectlombok.org</id>
+            <url>http://projectlombok.org/mavenrepo</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>fk-artifactory</id>
+            <name>Flipkart Artifactory</name>
+            <url>http://artifactory.nm.flipkart.com:8081/artifactory/libs-releases-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>artifactory-snapshots</id>
+            <name>artifactory-snapshot-releases</name>
+            <url>http://artifactory.nm.flipkart.com:8081/artifactory/libs-snapshots-local</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <dependencies>
+        <!-- Jacoco for Code Coverage-->
+        <dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>${jacoco.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-codec</groupId>
+                    <artifactId>commons-codec</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>
